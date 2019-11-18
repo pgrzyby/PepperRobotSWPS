@@ -7,12 +7,18 @@ package com.swps.pepperxapp.robot;
 import android.util.Log;
 import android.util.TypedValue;
 
+import com.aldebaran.qi.Consumer;
+import com.aldebaran.qi.Future;
 import com.aldebaran.qi.sdk.QiContext;
 import com.aldebaran.qi.sdk.RobotLifecycleCallbacks;
+import com.aldebaran.qi.sdk.builder.AnimateBuilder;
+import com.aldebaran.qi.sdk.builder.AnimationBuilder;
 import com.aldebaran.qi.sdk.builder.ChatBuilder;
 import com.aldebaran.qi.sdk.builder.QiChatbotBuilder;
 import com.aldebaran.qi.sdk.builder.SayBuilder;
 import com.aldebaran.qi.sdk.builder.TopicBuilder;
+import com.aldebaran.qi.sdk.object.actuation.Animate;
+import com.aldebaran.qi.sdk.object.actuation.Animation;
 import com.aldebaran.qi.sdk.object.conversation.BodyLanguageOption;
 import com.aldebaran.qi.sdk.object.conversation.Chat;
 import com.aldebaran.qi.sdk.object.conversation.Chatbot;
@@ -42,6 +48,7 @@ public class Robot implements RobotLifecycleCallbacks {
     public static final int MAX_RECOMMENDATION = 10;
 
     private Chat chat;
+    private Future<Void> fchat ;
     private QiContext qiContext;
     private UiNotifier uiNotifier;
     private QiChatbot qiChatbot;
@@ -96,12 +103,19 @@ public class Robot implements RobotLifecycleCallbacks {
         setExecutor();
         // Create the chat from its chatbots
         chat = ChatBuilder.with(qiContext)
+                .withLocale(new Locale(Language.ENGLISH, Region.UNITED_KINGDOM))
                 .withChatbot(qiChatbot/*, dialogFlowChatbot*/)
                 .build();
 
         setChatListeners();
-        chat.async().run();
+        fchat  = chat.async().run();
+    }
 
+    private void stopChat(){
+        fchat.requestCancellation();
+        //fchat = null;
+        //chat = null;
+        //qiChatbot = null;
     }
 
     private void setExecutor() {
@@ -214,6 +228,49 @@ public class Robot implements RobotLifecycleCallbacks {
         }
 
         return topics;
+    }
+
+    public void performAction() {
+
+        stopChat();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(5000);
+
+                    // Create an animation.
+                    Future<Animation> animation = AnimationBuilder.with(qiContext) // Create the builder with the context.
+                            .withResources(R.raw.both_hands_high_b001) // Set the animation resource.
+                            .buildAsync(); // Build the animation.
+
+                    // Create an animate action.
+                    Future<Animate> animate = AnimateBuilder.with(qiContext) // Create the builder with the context.
+                            .withAnimation(animation.getValue()) // Set the animation.
+                            .buildAsync(); // Build the animate action.
+
+                    // Run the animate action asynchronously.
+                    Future<Void> animateFuture = animate.getValue().async().run();
+
+                    Locale locale = new Locale(Language.POLISH, Region.POLAND);
+                    Future<Say> say = SayBuilder.with(qiContext)
+                            .withPhrase(new Phrase("Nie mogę się doczekać naszej konferencji dwudziestego dziewiątego listopada!"))
+                            .withLocale(locale)
+                            .buildAsync(); // OK.
+
+                    say.getValue().async().run();
+                }
+                catch (Exception e)
+                {
+                    Log.e("Robot", e.getMessage());
+                }
+
+            }
+        }).run();
+
+
+
     }
 
 }

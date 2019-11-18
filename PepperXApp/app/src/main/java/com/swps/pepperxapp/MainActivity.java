@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.aldebaran.qi.sdk.QiSDK;
 import com.aldebaran.qi.sdk.design.activity.RobotActivity;
 import com.aldebaran.qi.sdk.object.conversation.Phrase;
+import com.swps.pepperxapp.network.Advertiser;
 import com.swps.pepperxapp.network.HttpNanolets;
 import com.swps.pepperxapp.robot.*;
 
@@ -32,7 +33,11 @@ public class MainActivity  extends RobotActivity implements UiNotifier {
 
     private Robot robot;
 
+    private Advertiser advertiser;
+    private HttpNanolets httpd;
+
     private Button btnStart;
+    private Button btnStop;
     private TextView txtStatus;
     private TextView txtDetection;
     private TextView txtHints;
@@ -43,6 +48,7 @@ public class MainActivity  extends RobotActivity implements UiNotifier {
         setContentView(R.layout.activity_main);
 
         btnStart = findViewById(R.id.button_start);
+        btnStop = findViewById(R.id.button_stop);
         txtStatus = findViewById(R.id.txtStaus);
         txtDetection = findViewById(R.id.txtDetection);
         txtHints = findViewById(R.id.txtHints);
@@ -52,6 +58,13 @@ public class MainActivity  extends RobotActivity implements UiNotifier {
                 // Code here executes on main thread after user presses button
             }
         });
+        btnStop.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Code here executes on main thread after user presses button
+                robot.performAction();
+            }
+        });
+
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -60,7 +73,7 @@ public class MainActivity  extends RobotActivity implements UiNotifier {
         QiSDK.register(this, robot);
 
         try {
-            HttpNanolets httpd = new HttpNanolets(getAssets());
+            httpd = new HttpNanolets(getAssets());
             httpd.start();
 
             InetAddress hostAddr = InetAddress.getLocalHost();
@@ -73,11 +86,16 @@ public class MainActivity  extends RobotActivity implements UiNotifier {
             txtStatus.setText("Failed to open server: " + exc.getMessage());
         }
 
+        //advertiser = new Advertiser();
+        //advertiser.start();
+
     }
 
     @Override
     protected void onDestroy() {
         QiSDK.unregister(this, robot);
+        httpd.stop();
+        advertiser.stop();
         super.onDestroy();
     }
 
