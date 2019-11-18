@@ -103,7 +103,7 @@ public class Robot implements RobotLifecycleCallbacks {
         setExecutor();
         // Create the chat from its chatbots
         chat = ChatBuilder.with(qiContext)
-                .withLocale(new Locale(Language.ENGLISH, Region.UNITED_KINGDOM))
+                .withLocale(new Locale(Language.ENGLISH, Region.UNITED_STATES))
                 .withChatbot(qiChatbot/*, dialogFlowChatbot*/)
                 .build();
 

@@ -1,6 +1,9 @@
+<!DOCTYPE html>
 <html>
 
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
     <title>Pepper WebAccess</title>
     <link rel="stylesheet" href="mini-nord.min.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -39,14 +42,14 @@
     </div>
     <form action="" method="none">
         <fieldset>
-            <legend>Speek</legend>
+            <legend>Speak</legend>
             <div class="row">
                 <div class="col-sm-12 col-md-6">
                     <textarea type="text" id="text" name="text"></textarea>
                 </div>
             </div>
 
-            <button type="button" class="primary" value="submit" onclick="post('/speek', {text: document.getElementById('text').value});">SUBMIT</button>
+            <button type="button" class="primary" value="submit" onclick="post('/speak', {text: document.getElementById('text').value});">SUBMIT</button>
         </fieldset>
     </form>
     <hr/>
