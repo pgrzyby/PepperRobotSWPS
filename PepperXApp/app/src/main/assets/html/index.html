@@ -1,13 +1,109 @@
 <html>
-    <head>
-        <title>Pepper WebAccess</title>
-    </head>
-    <body>
-        <h1>Welcome to Pepper at SWPS!</h1>
-        <p>Pepper robot is active</p>
-        <form action="/action" method="post">
-            <input type="text" id="text" name="text"/>
-            <button type="submit" value="submit">SUBMIT</button>
-        </form>
-    </body>
+
+<head>
+    <title>Pepper WebAccess</title>
+    <link rel="stylesheet" href="mini-nord.min.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <style type="text/css">
+
+    </style>
+
+    <script type="text/jscript">
+        function post(url, data) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", url, true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.send(JSON.stringify(data));
+        }
+
+        function sendBtnCmd(val) {
+            post('/action', {
+                cmd: val
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h1>Pepper [SWPS]</h1>
+                <img src="favicon.ico" style="float: right;" />
+                <p>Pepper robot is active</p>
+
+            </div>
+        </div>
+    </div>
+    <form action="" method="none">
+        <fieldset>
+            <legend>Speek</legend>
+            <div class="row">
+                <div class="col-sm-12 col-md-6">
+                    <textarea type="text" id="text" name="text"></textarea>
+                </div>
+            </div>
+
+            <button type="button" class="primary" value="submit" onclick="post('/speek', {text: document.getElementById('text').value});">SUBMIT</button>
+        </fieldset>
+    </form>
+    <hr/>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                <span class="icon-location"></span>
+            </div>
+            <div class="col-sm-4 ">
+                <button type="button" class="tertiary" onclick="sendBtnCmd(1);">▲</button>
+            </div>
+            <div class="col-sm-4">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-2">
+                <button type="button" class="tertiary" onclick="sendBtnCmd(2);">◄</button>
+            </div>
+            <div class="col-sm-2">
+
+            </div>
+            <div class="col-sm-2">
+                <button type="button" class="tertiary" onclick="sendBtnCmd(3);">►</button>
+            </div>
+            <div class="col-sm-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+            </div>
+            <div class="col-sm-4">
+                <button type="button" class="tertiary" onclick="sendBtnCmd(4);">▼</button>
+            </div>
+            <div class="col-sm-4">
+            </div>
+        </div>
+    </div>
+    <hr/>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <span class="icon-settings"></span>
+                <button type="button" class="secondary" onclick="sendBtnCmd(10);">hands up!</button>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <span class="icon-user"></span>
+                <label>No Human detected</label>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
 </html>
