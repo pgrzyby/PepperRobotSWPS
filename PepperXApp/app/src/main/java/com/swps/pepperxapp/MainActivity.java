@@ -13,7 +13,9 @@ import android.os.StrictMode;
 import android.text.format.Formatter;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aldebaran.qi.sdk.QiSDK;
 import com.aldebaran.qi.sdk.design.activity.RobotActivity;
@@ -29,6 +31,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
+import static java.lang.System.currentTimeMillis;
+
 public class MainActivity  extends RobotActivity implements UiNotifier {
 
     private Robot robot;
@@ -42,26 +46,41 @@ public class MainActivity  extends RobotActivity implements UiNotifier {
     private TextView txtDetection;
     private TextView txtHints;
 
+    private  ImageView imgAvatar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btnStart = findViewById(R.id.button_start);
-        btnStop = findViewById(R.id.button_stop);
+//        btnStart = findViewById(R.id.button_start);
+//        btnStop = findViewById(R.id.button_stop);
         txtStatus = findViewById(R.id.txtStaus);
         txtDetection = findViewById(R.id.txtDetection);
         txtHints = findViewById(R.id.txtHints);
+        imgAvatar = findViewById(R.id.imgAvatar);
 
-        btnStart.setOnClickListener(new View.OnClickListener() {
+
+        ImageView imgSPWS = findViewById(R.id.imgSWPS);
+        imgSPWS.setOnClickListener(new View.OnClickListener() {
+            int _cntr = 0;
+            long _ts = 0;
             public void onClick(View v) {
                 // Code here executes on main thread after user presses button
-            }
-        });
-        btnStop.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                // Code here executes on main thread after user presses button
-                robot.performAction();
+                long ts = System.currentTimeMillis();
+                if (ts - _ts < 500) {
+                    _cntr++;
+                }
+                else {
+                    _cntr = 0;
+                }
+                _ts = ts;
+
+                if (_cntr > 4) {
+                    _cntr=0;
+                    //robot.performAction();
+                    Toast.makeText(getApplicationContext(), "ACTION!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

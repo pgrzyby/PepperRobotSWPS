@@ -1,0 +1,33 @@
+topic: ~lexicon()
+
+pronunciation:(I) [i]
+#=================================================================#
+### PRONUNCIATIONS ####
+#=================================================================#
+pronunciation:(nao) [nao]
+pronunciation:(Nao) [nao]
+
+
+#==================================================================#
+##### Robot concepts #####
+
+#TO_ADD dynamic concepts ~robotname ~myrobotname
+
+concept:(ald_robots) [Nao Pepper Peppersan Romeo]
+#==================================================================#
+
+#==================================================================#
+##### Voice tweaking #####
+concept:(neutral) \style=neutral\ \rspd=100\ \vct=110\
+concept:(neutral_slow) \style=neutral\ \vct=105\ \rspd=100\
+concept:(joyful) \style=joyful\ \rspd=90\ \vct=95\
+concept:(didactic) \style=didactic\ \rspd=105\ \vct=110\
+
+concept:(robot_impossible_actions)
+[ 
+    pić, jeść, latać, oddychac, płakać
+]
+
+concept:(htc_speakers) ["Aleksandra Przegalinska $speaker=aprzegalinska" "Konrad Maj $speaker=kmaj" "Pietro Leo $speaker=pleo"]
+
+

@@ -123,6 +123,8 @@ public class Robot implements RobotLifecycleCallbacks {
 
         // Map the executor name from the topic to our qiChatbotExecutor
         executors.put("launchAnimation", new MyQiChatExecutor(qiContext));
+        executors.put("showImage", new UiImageExecutor(qiContext, this.uiNotifier));
+        executors.put("playSound", new UiPlaySoundExecutor(qiContext, this.uiNotifier));
         // Set the executors to the qiChatbot
         qiChatbot.setExecutors(executors);
     }
