@@ -7,7 +7,7 @@ https://qisdk.softbankrobotics.com/
 
 ![Preview](https://qisdk.softbankrobotics.com/sdk/doc/pepper-sdk/_images/android_home.png)
 
-Features:
+**Features:**
 * Basic control robot with spatial location
 * Embedded HTTP server with REST API
 * Basic HTML control application
@@ -16,7 +16,7 @@ Features:
 * Conversation mode in Polish and English
 
 
-Our robot in action:
+**Our robot in action:**
 
 <img width=400 src='https://pbs.twimg.com/media/EKi8XOyXkAAVNRr.jpg'/>
 
