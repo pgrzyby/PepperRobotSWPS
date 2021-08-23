@@ -16,10 +16,10 @@ Features:
 * Conversation mode in Polish and English
 
 
-Using choreograph (not supported in recent SDK version) to build animations:
-![Preview](https://qisdk.softbankrobotics.com/sdk/doc/pepper-sdk/_images/gorilla_edit.png)
-
 Our robot in action:
 
 <img width=400 src='https://pbs.twimg.com/media/EKi8XOyXkAAVNRr.jpg'/>
 
+
+Using choreograph (not supported in recent SDK version) to build animations:
+![Preview](https://qisdk.softbankrobotics.com/sdk/doc/pepper-sdk/_images/gorilla_edit.png)
